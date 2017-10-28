@@ -47,3 +47,4 @@ end
 
 gem 'solidus', '1.0.2'
 gem 'solidus_auth_devise'
+gem 'slim-rails'
