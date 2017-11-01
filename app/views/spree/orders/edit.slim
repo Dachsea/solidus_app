@@ -15,7 +15,7 @@ div data-hook="cart_container"
             - @order.build_message if @order.message.nil?
             = order_form.fields_for :message_attributes do |message_form|
               = message_form.label :message_card
-              = message_form.collection_select :message_card_id, MessageCard.all, :id, :name
+              = message_form.collection_select :message_card_id, MessageCard.all, :id, :name, include_blank: true
               = message_form.label :content
               = message_form.text_field :content
           .links.columns.sixteen.alpha.omega data-hook="cart_buttons"
