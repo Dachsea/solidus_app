@@ -11,5 +11,6 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 Rails.application.config.assets.precompile += %w( icons/delete.png )
 Rails.application.config.assets.precompile += %w( credit_cards/credit_card.gif )
+Rails.application.config.assets.precompile += %w( noimage/mini.png )
 
 Spree::PermittedAttributes.checkout_attributes << { message_attributes: [:content, :message_card_id] }
