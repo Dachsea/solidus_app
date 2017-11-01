@@ -11,13 +11,23 @@ div data-hook="cart_container"
         div data-hook="inside_cart_form"
           div data-hook="cart_items"
             = render :partial => 'form', :locals => { :order_form => order_form }
-          div
+          div#message
             - @order.build_message if @order.message.nil?
+            h3 Message Card
             = order_form.fields_for :message_attributes do |message_form|
-              = message_form.label :message_card
-              = message_form.collection_select :message_card_id, MessageCard.all, :id, :name, include_blank: true
-              = message_form.label :content
-              = message_form.text_field :content
+              div#message_card_sellect
+                p
+                  |
+                    なし
+                  =message_form.radio_button :message_card_id, "",checked: true , "v-model": "picked"
+                - MessageCard.all.each do |card|
+                  p
+                    |
+                    =image_tag(card.photo, size: "60x30")
+                    =message_form.radio_button :message_card_id, card.id, "v-model": "picked"
+              div#message_textbox v-show="picked != '' "
+                = message_form.label :content
+                = message_form.text_field :content
           .links.columns.sixteen.alpha.omega data-hook="cart_buttons"
             = order_form.text_field :coupon_code, :size => 10, :placeholder => Spree.t(:coupon_code)
             = button_tag :class => 'primary', :id => 'update-button' do
