@@ -6,6 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require vue
 //= require spree/frontend
 
 //= require_tree .
