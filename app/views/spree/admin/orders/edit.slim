@@ -1,0 +1,22 @@
+- content_for :page_actions do
+  - if can?(:fire, @order)
+    li= event_links
+  - if can?(:resend, @order) && @order.completed?
+    li= button_link_to Spree.t(:resend), resend_admin_order_url(@order), method: :post, icon: 'email'
+  - if can?(:admin, Spree::Order)
+    li= button_link_to Spree.t(:back_to_orders_list), admin_orders_path, icon: 'arrow-left'
+= render :partial => 'spree/admin/shared/order_tabs', :locals => { :current => 'Shipments' }
+div data-hook="admin_order_edit_header"
+  = render partial: 'spree/shared/error_messages', locals: { target: @order }
+- if @order.payments.exists? && @order.is_risky?
+  = render 'spree/admin/orders/risk_analysis', latest_payment: @order.payments.order("created_at DESC").first
+- if can?(:update, Spree::Shipment) && can?(:update, @order) && @order.shipment_state != "shipped"
+  = render partial: 'add_product'
+- if @order.line_items.empty?
+  .no-objects-found
+    = Spree.t(:your_order_is_empty_add_product)
+div data-hook="admin_order_edit_form"
+  #order-form-wrapper
+    = render partial: 'form', locals: { order: @order }
+- content_for :head do
+  = javascript_tag 'var expand_variants = true;'
