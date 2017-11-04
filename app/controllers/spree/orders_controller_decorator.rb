@@ -1,5 +1,3 @@
-require 'byebug'
-
 Spree::OrdersController.class_eval do
 
   def update
